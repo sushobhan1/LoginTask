@@ -14,6 +14,7 @@ namespace DemoInfo
         void Application_Start(object sender, EventArgs e)
         {
             // Code that runs on application startup
+            RouteTable.Routes.MapPageRoute("Login.aspx", "", "~/Login.aspx");
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
