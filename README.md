@@ -9,14 +9,22 @@ Login and registration functionality
 Rijndael encryption/decryption for password security
 User authentication verification
 Session management (consider using Session instead of cookies for better security)
+
+
 Data Access:
 ADO.Net for database connectivity
 Master-detail tables in SQL Server with primary and foreign key relationships
 Stored procedures for CRUD operations (Create, Read, Update, Delete)
+
+
 Data Binding and Display:
 DataReader, DataSet, and DataTable usage examples (demonstrate scenarios for each)
+
+
 Front-End:
 Core or Plain JavaScript manipulation in view pages for dynamic interactions
+
+
 Project Structure:
 
 Global.asax: Configures the application's startup page (Login.aspx)
@@ -27,6 +35,7 @@ User authentication logic
 Redirect to Dashboard.aspx upon successful login
 Consider using sessions instead of cookies for improved security
 Dashboard.aspx: Displays user information retrieved from database
+Logout.aspx:Logout the user and clear the session
 Retrieves user info based on session data (if using sessions)
 CRUD operations (demonstrate DataReader, DataSet, and DataTable in different scenarios)
 Models: Classes representing your database entities (optional)
