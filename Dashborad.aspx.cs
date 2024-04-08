@@ -47,6 +47,7 @@ namespace DemoInfo
 
                         if (isActive == "1")
                         {
+                            BindProducts();
                             form1.Visible = true;
                             userID.Value = UserId;
                             name.InnerHtml = userName;
@@ -60,6 +61,8 @@ namespace DemoInfo
                             ddlDistrict.DataBind();
                             ddlDistrict.Items.Insert(0, new ListItem(districtName, districtId));
                             main.Visible = false;
+                            BindUserProductsList();
+
                         }
                         else
                         {
@@ -105,6 +108,43 @@ namespace DemoInfo
                 msgUpdate.InnerHtml = "User Delete Successfully";
                 Response.Redirect("~/Login.aspx");
             }
+        }
+
+        protected void BindProducts()
+        {
+            DataSet ds = dal.GetProducts();
+            ddlProducts.DataSource = ds.Tables[0];
+            ddlProducts.DataTextField = "Text";
+            ddlProducts.DataValueField = "Value";
+            ddlProducts.DataBind();
+        }
+
+        protected void btnOrder_Click(object sender, EventArgs e)
+        {
+            int userDataID = int.Parse(userID.Value);
+            int productID = int.Parse(ddlProducts.SelectedValue.ToString());
+            DateTime orderDate = DateTime.Now;
+            DataSet orderProductUser = dal.OrderProducts(userDataID, productID, orderDate);
+            string msgType = (string)orderProductUser.Tables[0].Rows[0]["MsgType"];
+            if (msgType == "success")
+            {
+                msgUpdate.InnerHtml = "User Order Successfully";
+
+            }
+        }
+        protected void BindUserProductsList()
+        {
+
+            int userDataID = int.Parse(userID.Value);
+            DataSet ds = dal.GetUserProducts(userDataID);
+
+
+            OrderDetailsRepeater.DataSource = ds.Tables[0];
+            OrderDetailsRepeater.DataBind();
+            ddlGetUSerProductList.DataSource = ds.Tables[1];
+            ddlGetUSerProductList.DataTextField = "Text";
+            ddlGetUSerProductList.DataValueField = "Value";
+            ddlGetUSerProductList.DataBind();
         }
     }
 }

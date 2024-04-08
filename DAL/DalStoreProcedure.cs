@@ -116,5 +116,54 @@ namespace DemoInfo.DAL
                 return data;
             }
         }
+
+        public DataSet GetProducts()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("[dbo].[GetPrducts]", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                DataSet data = new DataSet();
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(data);
+                return data;
+            }
+        }
+
+        public DataSet OrderProducts(int userId, int productId, DateTime dateTime)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("[dbo].[User.Order.Create]", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@UserId", SqlDbType.NVarChar, 100).Value = userId;
+                command.Parameters.Add("@ProductId", SqlDbType.NVarChar, 100).Value = productId;
+                command.Parameters.Add("@OrderDate", SqlDbType.DateTime, 100).Value = dateTime;
+
+                command.Parameters.Add("@MsgType", SqlDbType.NVarChar, 500).Direction = ParameterDirection.Output;
+
+                DataSet data = new DataSet();
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(data);
+                return data;
+            }
+        }
+
+        public DataSet GetUserProducts(int userId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("[dbo].[User.Order.Details]", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@UserId", SqlDbType.NVarChar, 100).Value = userId;
+                DataSet data = new DataSet();
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(data);
+                return data;
+            }
+        }
     }
 }

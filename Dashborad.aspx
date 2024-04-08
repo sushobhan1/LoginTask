@@ -116,6 +116,35 @@
             </div>
         </div>
        </div>
+
+        <div id="order" runat="server">
+            <h2>User can order the following products</h2>
+             <div>
+                <label for="ddlProducts">Products </label>
+                        <asp:DropDownList ID="ddlProducts" runat="server" CssClass="form-control" title="Produts"  EnableViewState="true">
+                        </asp:DropDownList>
+                  <div>
+                 <asp:Button ID="btnOrder" runat="server" Text="Order" OnClick="btnOrder_Click" />
+            </div>
+             </div>
+        </div>
+        <div id="orderDetails" runat="server">
+            <div>
+                <label for="ddlGetUSerProductList">User Has order following products </label>
+                        <asp:DropDownList ID="ddlGetUSerProductList" runat="server" CssClass="form-control" title="UserProductList"  EnableViewState="true">
+                        </asp:DropDownList>
+                  <div>
+                 <asp:Repeater ID="OrderDetailsRepeater" runat="server">
+    <ItemTemplate>
+        <div>
+            <span id="Quantity" runat="server"><%# Eval("Quantity") %> </span>
+            <span id="TotalAmount" runat="server"><%# Eval("TotalAmount") %></span>
+        </div>
+    </ItemTemplate>
+</asp:Repeater>
+            </div>
+                </div>
+        </div>
     </form>
 </body>
 </html>
